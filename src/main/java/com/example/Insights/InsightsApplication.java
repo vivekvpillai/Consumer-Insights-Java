@@ -35,6 +35,7 @@ public class InsightsApplication {
 	@PostMapping("/objects")
 	public Iterable<Object> create (@RequestBody Object objectData) {
 		ObjectRepository.save(objectData);
+		System.out.println(objectData);
 		return ObjectRepository.findAll();
 	}
 

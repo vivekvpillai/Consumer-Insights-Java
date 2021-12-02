@@ -75,7 +75,8 @@ class App extends React.Component {
                 this.setState({
                     objects:response.data,
                     samplename:'',
-                    category:null,
+                    category:'',
+                    visits: null
                 })
             }
         )

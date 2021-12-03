@@ -9,6 +9,7 @@ class App extends React.Component {
                 this.setState({
                     objects:response.data
                 })
+                console.log(this.state.objects)
             }
         )
     }
@@ -18,7 +19,7 @@ class App extends React.Component {
         axios.post(
             '/objects',
             {
-                samplename:this.state.newobjectsamplename,
+                sampleName:this.state.newobjectsampleName,
                 category:this.state.newobjectcategory,
                 visits:this.state.newobjectvisits,
             }
@@ -43,9 +44,9 @@ class App extends React.Component {
         });
     }
 
-    changeNewobjectsamplename = (event) => {
+    changeNewobjectsampleName = (event) => {
         this.setState({
-            newobjectsamplename:event.target.value
+            newobjectsampleName:event.target.value
         });
     }
 
@@ -66,7 +67,7 @@ class App extends React.Component {
         axios.put(
             '/objects/' + id,
             {
-                samplename:this.state.updateObjectsamplename,
+                sampleName:this.state.updateObjectsampleName,
                 category:this.state.updateObjectcategory,
                 visits:this.state.updateObjectvisits
             }
@@ -74,7 +75,7 @@ class App extends React.Component {
             (response) => {
                 this.setState({
                     objects:response.data,
-                    samplename:'',
+                    sampleName:'',
                     category:'',
                     visits: null
                 })
@@ -82,10 +83,10 @@ class App extends React.Component {
         )
     }
 
-    changeupdateObjectsamplename = (event) => {
+    changeupdateObjectsampleName = (event) => {
         this.setState(
             {
-                updateObjectsamplename:event.target.value
+                updateObjectsampleName:event.target.value
             }
         )
     }
@@ -110,7 +111,7 @@ class App extends React.Component {
         return <div>
             <h2>Create object</h2>
             <form onSubmit={this.createobject}>
-                <input onKeyUp={this.changeNewobjectsamplename} type="text" placeholder="samplename" /><br/>
+                <input onKeyUp={this.changeNewobjectsampleName} type="text" placeholder="sampleName" /><br/>
                 <input onKeyUp={this.changeNewobjectcategory} type="text" placeholder="category" /><br/>
                 <input onKeyUp={this.changeNewobjectvisits} type="number" placeholder="visits" /><br/>
                 <input type="submit" value="Create object" />
@@ -118,17 +119,21 @@ class App extends React.Component {
             <h2>List of objects</h2>
             <ul>
                 {
-                    this.state.objects.map(
+                    this.state.objects
+                    .sort(({ id: previousID }, { id: currentID }) => previousID - currentID)
+                    .map(
                         (object, index) => {
+                          console.log(object);
+                          console.log(index)
                             return <li key={index}>
 
-                                {object.samplename}: {object.category} : {object.visits}
+                                {object.sampleName}: {object.category} : {object.visits}
 
                                 <button value={object.id} onClick={this.deleteObject}>DELETE</button>
 
                                 <form id={object.id} onSubmit={this.updateObject}>
-                                    <input onKeyUp={this.changeupdateObjectsamplename} type="text" placeholder="samplename"/><br/>
-                                    <input onKeyUp={this.changeupdateObjectcategory} type="number" placeholder="category"/><br/>
+                                    <input onKeyUp={this.changeupdateObjectsampleName} type="text" placeholder="sampleName"/><br/>
+                                    <input onKeyUp={this.changeupdateObjectcategory} type="text" placeholder="category"/><br/>
                                     <input onKeyUp={this.changeupdateObjectvisits} type="number" placeholder="visits" /><br/>
                                     <input type="submit"  value="Update object"/>
                                 </form>

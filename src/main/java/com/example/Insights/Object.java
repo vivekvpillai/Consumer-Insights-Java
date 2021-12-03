@@ -11,7 +11,7 @@ public class Object {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
 
-  private String samplename;
+  private String sampleName;
 
   private String category;
 
@@ -25,12 +25,12 @@ public class Object {
     this.id = id;
   }
 
-  public String getSampleName() {
-    return samplename;
+  public String getsampleName() {
+    return sampleName;
   }
 
-  public void setSampleName(String samplename) {
-    this.samplename = samplename;
+  public void setsampleName(String sampleName) {
+    this.sampleName = sampleName;
   }
 
   public String getCategory() {

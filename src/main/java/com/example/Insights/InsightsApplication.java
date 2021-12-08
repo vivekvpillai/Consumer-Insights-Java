@@ -20,7 +20,16 @@ public class InsightsApplication {
 	private ObjectRepository ObjectRepository;
 
 	public static void main(String[] args) {
+		ConfigurableApplicationContext configurableApplicationContext =
 		SpringApplication.run(InsightsApplication.class, args);
+		CartRepository cartRepository = configurableApplicationContext.getBean(CartRepository.class);
+
+		User user = new User(username: "vivek");
+		Object test = new Object(samplename: "StoryTeller", category: "Visits", visits: 100, user);
+		Object item = new Object(samplename: "Portfolio", category: "Visits", visits: 20, user);
+		List<Object> objects = Arrays.asList(test, item);
+		user.setItems(objects);
+		UserRepository.save(user);
 	}
 
 	@GetMapping("/hello")
